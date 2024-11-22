@@ -25,7 +25,6 @@ cv2.putText(black,'Resize window to fit!',
 cv2.imshow('Display', black)
 
 
-
 cv2.waitKey(0)
 size = cv2.getWindowImageRect('Display')
 height = size[3]
@@ -34,7 +33,7 @@ resized = cv2.resize(image, (width, height))
 subpixel = np.zeros((height,width*3,3), np.uint8)
 new = np.zeros((height,width,3), np.uint8)
 
-
+'''
 for i in range(0, image.shape[0]):
     print("Percentage: ", i/image.shape[0]*100)
     for j in range(0, image.shape[1]):
@@ -49,6 +48,21 @@ for i in range(0, new.shape[0]):
         G = subpixel[i,j*3+1][1]
         B = subpixel[i,j*3+2][0]
         new[i,j] = [B,G,R]
+'''
+
+# For every of target pixel:
+for i in range (0, new.shape[0]):
+    print("Percentage: ", i/new.shape[0]*100)
+    for j in range (0, new.shape[1]):
+        # Simulate true width
+        width = new.shape[1]*3
+        R = image[floor((i/new.shape[0])*image.shape[0]), floor((j*3/width)*image.shape[1])][2]
+        G = image[floor((i/new.shape[0])*image.shape[0]), floor(((j*3+1)/width)*image.shape[1])][1]
+        B = image[floor((i/new.shape[0])*image.shape[0]), floor(((j*3+2)/width)*image.shape[1])][0]
+        new[i,j] = [B,G,R]
+
+
+
 
 
 
